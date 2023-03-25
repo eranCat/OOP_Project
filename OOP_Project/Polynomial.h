@@ -8,18 +8,14 @@ class Polynomial
 private:
 	static int _maxDegree;
 	int _degree;
-
+	//int coeff_degree;
 	double* _coeffs;
-public :
+public:
 	static int getMaxDegree();
-	static int _alloc;
-	static void incAlloc() {
-		/*cout << "\nAlloc:" << _alloc<<"\n";
-		_alloc++;*/
-	}
 
-	Polynomial(int degree = 0);
-	Polynomial(double a[],int degree);
+	Polynomial();
+	Polynomial(int degree);
+	Polynomial(double a[], int degree);
 
 	~Polynomial();
 
@@ -30,4 +26,3 @@ public :
 
 	void print()const;
 };
-

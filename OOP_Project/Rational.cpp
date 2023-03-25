@@ -1,9 +1,9 @@
 #include "Rational.h"
 
 Rational::Rational() {
-	Polynomial p2;
+	Polynomial p2(1);
 	p2.setCoeff(0, 1);
-	
+
 	_numerator = Polynomial();
 	_denominator = p2;
 }
@@ -34,5 +34,5 @@ void Rational::print()const {
 
 Rational::~Rational()
 {
-	/*cout << "Ratinal destruct";*/
+	/*cout << "Rational destruct";*/
 }
