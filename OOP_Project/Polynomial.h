@@ -13,9 +13,9 @@ private:
 public:
 	static int getMaxDegree();
 
-	Polynomial();
-	Polynomial(int degree);
+	Polynomial(int degree=0);
 	Polynomial(double a[], int degree);
+	Polynomial(const Polynomial& src);
 
 	~Polynomial();
 

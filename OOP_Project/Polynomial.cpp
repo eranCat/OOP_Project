@@ -2,12 +2,7 @@
 
 int Polynomial::_maxDegree = 0;
 
-Polynomial::Polynomial() {
-    _degree = 0;
-    _coeffs = NULL;
-}
-
-Polynomial::Polynomial(int degree) :Polynomial(NULL, degree) {
+Polynomial::Polynomial(int degree):Polynomial(NULL, degree) {
 
 }
 
@@ -15,14 +10,10 @@ Polynomial::Polynomial(double a[], int degree) {
     this->_degree = degree;
     int i, tempMaxCurrentDegree;
 
-    _coeffs = new double[_degree + 1];
+    _coeffs = new double[_degree + 1]();//init with 0
 
-    if (a == NULL)
+    if (a != NULL)
     {
-        for (i = 0; i < degree + 1; i++)
-            _coeffs[i] = 0;
-    }
-    else {
         for (i = 0; i < degree + 1; i++)
         {
             _coeffs[i] = a[i];
@@ -34,6 +25,11 @@ Polynomial::Polynomial(double a[], int degree) {
     {
         Polynomial::_maxDegree = tempMaxCurrentDegree;
     }
+}
+
+//Copy ctor
+Polynomial::Polynomial(const Polynomial& src):Polynomial(src._coeffs,src._degree)
+{
 }
 
 //static
@@ -64,49 +60,17 @@ double Polynomial::getCoeff(int index) const
 }
 
 void Polynomial::setCoeff(int degree, double coeff) {
-    int i;
-    //coeff_degree = degree;
-    if (!_coeffs)return;
-
-    if (degree >= 0 && degree <= _degree)
+    if (degree >= 0 && degree < _degree+1)
     {
         _coeffs[degree] = coeff;
     }
-    for (i = degree - 1; i >= 0; i--)
-    {
-        _coeffs[i] = NULL;
-    }
-
 }
 
 void Polynomial::print()const {
+    int i,max = getDegree(true)+1;
 
-    bool isZero = true;
-    int i, j;
-
-    if (_degree == 0)
-    {
-        cout << "polynomial = 0\n";
-        return;
-    }
-
-    for (i = _degree; i >= 0; i--)
-    {
-        if (_coeffs[i] != 0)
-        {
-            isZero = false;
-            j = i;
-            break;
-        }
-    }
-
-    if (isZero)
-    {
-        cout << "polynomial = 0\n";
-        return;
-    }
     cout << "polynomial = " << _coeffs[0];
-    for (i = 1; i <= j; i++)
+    for (i = 1; i < max; i++)
     {
         cout << "+" << _coeffs[i] << "X^" << i;
     }
@@ -115,8 +79,6 @@ void Polynomial::print()const {
 
 Polynomial::~Polynomial()
 {
-    //if (_coeffs) {
-    //    delete _coeffsn;
-    //    _coeffs = NULL;
-    //}
+    //cout << "--------------Destruct " << _coeffs << "\n";
+    //delete _coeffs;
 }

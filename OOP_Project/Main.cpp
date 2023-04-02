@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Polynomial.h"
 #include "Rational.h"
+
 double getDegree(const Polynomial& p, bool what)
 {
 	return p.getDegree(what);

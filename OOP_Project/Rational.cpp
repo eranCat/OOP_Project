@@ -1,14 +1,11 @@
 #include "Rational.h"
 
 Rational::Rational() {
-	Polynomial p2(1);
-	p2.setCoeff(0, 1);
-
 	_numerator = Polynomial();
-	_denominator = p2;
+	_denominator = Polynomial(new double{ 1 }, 0);
 }
 
-Rational::Rational(Polynomial& p1, Polynomial& p2)
+Rational::Rational(Polynomial p1,Polynomial p2)
 {
 	_numerator = p1;
 	_denominator = p2;
