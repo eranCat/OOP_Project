@@ -16,6 +16,7 @@ public:
 	Polynomial(int degree=0);
 	Polynomial(double a[], int degree);
 	Polynomial(const Polynomial& src);
+	Polynomial& operator=(const Polynomial& src);
 
 	~Polynomial();
 

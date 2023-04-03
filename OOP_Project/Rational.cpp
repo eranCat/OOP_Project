@@ -5,7 +5,7 @@ Rational::Rational() {
 	_denominator = Polynomial(new double{ 1 }, 0);
 }
 
-Rational::Rational(Polynomial p1,Polynomial p2)
+Rational::Rational(Polynomial p1, Polynomial p2)
 {
 	_numerator = p1;
 	_denominator = p2;
@@ -31,5 +31,5 @@ void Rational::print()const {
 
 Rational::~Rational()
 {
-	/*cout << "Rational destruct";*/
+	/*cout << "Rational destruct\n";*/
 }

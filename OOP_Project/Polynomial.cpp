@@ -32,6 +32,26 @@ Polynomial::Polynomial(const Polynomial& src):Polynomial(src._coeffs,src._degree
 {
 }
 
+Polynomial& Polynomial::operator=(const Polynomial& other)
+{
+    if (this == &other)//compare addresses to prevent x=x
+    {
+        return *this;
+    }
+
+    this->_degree = other._degree;
+    if (other._coeffs == NULL)
+    {
+        this->_coeffs = NULL;
+    }
+    else {
+        this->_coeffs = new double[_degree + 1]();
+        memcpy(this->_coeffs, other._coeffs, (_degree + 1) * sizeof(double));
+    }
+
+    return *this;
+}
+
 //static
 int Polynomial::getMaxDegree() {
     return _maxDegree;
@@ -51,12 +71,10 @@ int Polynomial::getDegree(bool iterate) const
 
 double Polynomial::getCoeff(int index) const
 {
-    if (!(index >= 0 && index <= _degree))
+    if (_coeffs == NULL || !(index >= 0 && index <= _degree))
         return -12345.5;
 
-    if (_coeffs != NULL /* && index >= 0 && index <= _degree*/) {
-        return _coeffs[index];
-    }
+    return _coeffs[index];
 }
 
 void Polynomial::setCoeff(int degree, double coeff) {
@@ -79,6 +97,6 @@ void Polynomial::print()const {
 
 Polynomial::~Polynomial()
 {
-    //cout << "--------------Destruct " << _coeffs << "\n";
-    //delete _coeffs;
+    //cout << "--------------Destruct Poly" << _coeffs << "\n";
+    delete[] _coeffs;
 }

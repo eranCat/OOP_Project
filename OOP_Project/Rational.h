@@ -10,7 +10,7 @@ private:
 
 public:
 	Rational();
-	Rational(Polynomial p1 , Polynomial p2);
+	Rational(Polynomial p1, Polynomial p2);
 	~Rational();
 
 	const Polynomial& getNom()const;
