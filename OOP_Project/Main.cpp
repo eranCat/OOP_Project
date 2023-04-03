@@ -67,6 +67,6 @@ void testRational() {
 }
 int main()
 {
-	//testPolynomial();
+	testPolynomial();
 	testRational();
 }
