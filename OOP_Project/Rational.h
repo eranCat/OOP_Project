@@ -16,5 +16,12 @@ public:
 	const Polynomial& getNom()const;
 	const Polynomial& getDenom()const;
 	void print()const;
+
+	Rational& operator=(Rational& other);
+	Rational& operator+(Rational& other);
+	Rational& operator-(Rational& other);
+	Rational& operator*(Rational& other);
+
+	friend ostream& operator<<(ostream& output, const Rational& p);
 };
 

@@ -1,4 +1,5 @@
 #include "Polynomial.h"
+#include<string>
 
 int Polynomial::_maxDegree = 0;
 
@@ -84,15 +85,25 @@ void Polynomial::setCoeff(int degree, double coeff) {
     }
 }
 
-void Polynomial::print()const {
-    int i,max = getDegree(true)+1;
+double& Polynomial::operator[](int i) {
+    return _coeffs[i];
+}
 
-    cout << "polynomial = " << _coeffs[0];
+string Polynomial::toString() const{
+    int i, max = getDegree(true) + 1;
+
+    string str = "polynomial = " + to_string( _coeffs[0]);
+    
     for (i = 1; i < max; i++)
     {
-        cout << "+" << _coeffs[i] << "X^" << i;
+        str += "+" + to_string(_coeffs[i]) + "X^" + to_string(i);
     }
-    cout << "\n";
+    str+= "\n";
+    return str;
+}
+
+void Polynomial::print()const {
+    cout << toString();
 }
 
 Polynomial::~Polynomial()

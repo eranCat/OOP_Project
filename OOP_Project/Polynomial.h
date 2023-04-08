@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<stdio.h>
 
 using namespace std;
 
@@ -26,4 +27,20 @@ public:
 	void setCoeff(int degree, double coeff);
 
 	void print()const;
+
+	Polynomial& operator+(Polynomial& other)const;
+	Polynomial& operator-(Polynomial& other)const;
+	Polynomial& operator*(Polynomial& other)const;
+
+	friend Polynomial& operator*(const double a, const Polynomial& p);
+	friend Polynomial& operator*(const Polynomial& p, const double a) {
+		//call the other in reverse
+		return a * p;
+	}
+
+	//Read access to coeffs
+	double& operator[](int i);
+	string toString()const;
+	friend ostream& operator<<(ostream& output, const Polynomial& p);
 };
+
