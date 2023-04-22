@@ -10,6 +10,7 @@ private:
 
 public:
 	Rational();
+	Rational(const Rational& other);
 	Rational(Polynomial p1, Polynomial p2);
 	~Rational();
 
@@ -17,11 +18,11 @@ public:
 	const Polynomial& getDenom()const;
 	void print()const;
 
-	Rational& operator=(Rational& other);
-	Rational& operator+(Rational& other);
-	Rational& operator-(Rational& other);
-	Rational& operator*(Rational& other);
-	friend Rational& operator*(const double a, const Rational& r);
+	Rational operator=(const Rational& other);
+	Rational operator+(const Rational& other);
+	Rational operator-(const Rational& other);
+	Rational operator*(const Rational& other);
+	friend Rational operator*(const double a, const Rational& r);
 
 	friend ostream& operator<<(ostream& output, const Rational& p);
 };

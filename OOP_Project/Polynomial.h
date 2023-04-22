@@ -14,7 +14,7 @@ private:
 public:
 	static int getMaxDegree();
 
-	Polynomial(int degree=0);
+	Polynomial(int degree = 0);
 	Polynomial(double a[], int degree);
 	Polynomial(const Polynomial& src);
 	Polynomial& operator=(const Polynomial& src);
@@ -28,12 +28,12 @@ public:
 
 	void print()const;
 
-	Polynomial& operator+(Polynomial& other)const;
-	Polynomial& operator-(Polynomial& other)const;
-	Polynomial& operator*(Polynomial& other)const;
+	Polynomial operator+(const Polynomial& other)const;
+	Polynomial operator-(const Polynomial& other)const;
+	Polynomial operator*(const Polynomial& other)const;
 
-	friend Polynomial& operator*(const double a, const Polynomial& p);
-	friend Polynomial& operator*(const Polynomial& p, const double a) {
+	friend Polynomial operator*(const double a, const Polynomial& p);
+	friend Polynomial operator*(const Polynomial& p, const double a) {
 		//call the other in reverse
 		return a * p;
 	}

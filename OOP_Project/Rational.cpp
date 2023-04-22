@@ -5,6 +5,12 @@ Rational::Rational() {
 	_denominator = Polynomial(new double{ 1 }, 0);
 }
 
+Rational::Rational(const Rational& other)
+{
+	this->_numerator = other._numerator;
+	this->_denominator = other._denominator;
+}
+
 Rational::Rational(Polynomial p1, Polynomial p2)
 {
 	_numerator = p1;
@@ -24,53 +30,55 @@ const Polynomial& Rational::getDenom() const
 
 void Rational::print()const {
 
-	cout << *this;
+	cout << _numerator;
+	for (int i = 0; i < 26; i++)
+	{
+		cout << "-";
+	}
+	cout << endl;
+	cout << _denominator;
 }
 
-Rational& Rational::operator=(Rational& other)
+Rational Rational::operator=(const Rational& other)
 {
 	this->_numerator = other._numerator;
 	this->_denominator = other._denominator;
 	return *this;
 }
 
-Rational& Rational::operator+(Rational& other)
+Rational Rational::operator+(const Rational& other)
 {
-	Rational* plus = new Rational(*this);
+	Rational plus = Rational(*this);
 
-	plus->_numerator = this->_numerator * other._denominator + this->_denominator * other._numerator;
-	plus->_denominator = this->_denominator * other._denominator;
-	return *plus;
+	plus._numerator = this->_numerator * other._denominator + this->_denominator * other._numerator;
+	plus._denominator = this->_denominator * other._denominator;
+	return plus;
 }
 
-Rational& Rational::operator-(Rational& other)
+Rational Rational::operator-(const Rational& other)
 {
-	return * this + (-1) * other;
+	return *this + (-1) * other;
 }
 
-Rational& Rational::operator*(Rational& other)
+Rational Rational::operator*(const Rational& other)
 {
-	Polynomial* n = &(other._numerator * _numerator);
-	Polynomial* d = &(other._denominator * _denominator);
-	return *(new Rational(*n, *d));
+	return Rational(other._numerator * _numerator, other._denominator * _denominator);
 }
 
-Rational& operator*(const double a, const Rational& r)
+Rational operator*(const double a, const Rational& r)
 {
-	Polynomial* n = &(r._numerator * a);
-	Polynomial* d = &(r._denominator * abs(a));
-	return *(new Rational(*n, *d));
+	return  Rational(r._numerator * a, r._denominator * abs(a));
 }
 
 ostream& operator<<(ostream& output, const Rational& p)
 {
-	cout << p._denominator;
+	output <<"numerator=" << p._numerator;
 	for (int i = 0; i < 26; i++)
 	{
-		cout << "-";
+		output << "-";
 	}
-	cout << endl;
-	cout << p._numerator;
+	output << endl;
+	output <<"denominator=" << p._denominator;
 	return output;
 }
 

@@ -1,6 +1,4 @@
 #include "Polynomial.h"
-#include<string>
-
 int Polynomial::_maxDegree = 0;
 
 Polynomial::Polynomial(int degree):Polynomial(NULL, degree) {
@@ -15,6 +13,7 @@ Polynomial::Polynomial(double a[], int degree) {
 
     if (a != NULL)
     {
+        //copy
         for (i = 0; i < degree + 1; i++)
         {
             _coeffs[i] = a[i];
@@ -40,16 +39,17 @@ Polynomial& Polynomial::operator=(const Polynomial& other)
         return *this;
     }
 
-    this->_degree = other._degree;
-    if (other._coeffs == NULL)
-    {
-        this->_coeffs = NULL;
-    }
-    else {
-        this->_coeffs = new double[_degree + 1]();
-        memcpy(this->_coeffs, other._coeffs, (_degree + 1) * sizeof(double));
-    }
+    if(_coeffs ) delete[] _coeffs;
 
+    this->_coeffs = new double[_degree + 1]();
+
+    this->_degree = other._degree;
+
+    for (int i = 0; i < other._degree + 1; i++)
+    {
+        this->_coeffs[i] = other.getCoeff(i);
+    }
+    
     return *this;
 }
 
@@ -72,8 +72,14 @@ int Polynomial::getDegree(bool iterate) const
 
 double Polynomial::getCoeff(int index) const
 {
-    if (_coeffs == NULL || !(index >= 0 && index <= _degree))
-        return -12345.5;
+   /* if (_coeffs == NULL || !(index >= 0 && index <= _degree))
+        return -1234.12;*/
+    
+    if (_coeffs == NULL || index < 0)
+        return -1234.12;
+    if (index >= _degree+1)
+        return 0;
+    
 
     return _coeffs[index];
 }
@@ -92,9 +98,8 @@ double& Polynomial::operator[](int i) {
     return _coeffs[i];
 }
 
-Polynomial& Polynomial::operator+(Polynomial& other) const
+Polynomial Polynomial::operator+( const Polynomial&other) const
 {
-    Polynomial* plus = NULL;
     int i;
     int P_MIN, P_MAX;
     double* minCo;
@@ -115,7 +120,7 @@ Polynomial& Polynomial::operator+(Polynomial& other) const
         maxCo = this->_coeffs;
     }
 
-    plus = new Polynomial(P_MAX);
+    Polynomial plus = Polynomial(P_MAX);
     
     for ( i = 0; i < P_MIN + 1; i++)
     {
@@ -126,49 +131,49 @@ Polynomial& Polynomial::operator+(Polynomial& other) const
     {
         plus[i] = maxCo[i];
     }
-    return *plus;
+    return plus;
 }
 
-Polynomial& Polynomial::operator-(Polynomial& other) const
+Polynomial Polynomial::operator-(const Polynomial&  other) const
 {
     return *this + (-1) * other;
 }
 
-Polynomial& Polynomial::operator*(Polynomial& other) const
+Polynomial Polynomial::operator*( const Polynomial& other) const
 {
-    Polynomial* mult = new Polynomial(_degree + other._degree);
+    Polynomial mult = Polynomial(_degree + other._degree);
     int i, j;
-    for (i = 0; i < this->_degree; i++)
+    for (i = 0; i < this->_degree + 1; i++)
     {
-        for (j = 0; j < other._degree; j++)
+        for (j = 0; j < other._degree + 1; j++)
         {
-            mult->_coeffs[i+j] += this->_coeffs[i] * other[j];
+            mult._coeffs[i+j] += this->_coeffs[i] * other[j];
         }
     }
 
-    return *mult;
+    return mult;
 }
 
-Polynomial& operator*(const double a, const Polynomial& p)
+Polynomial operator*(const double a, const Polynomial& p)
 {
     int i;
-    Polynomial* new_p = new Polynomial(p);
+    Polynomial new_p(p);
     for (i = 0; i < p._degree + 1; i++)
     {
-        (*new_p)[i] = p[i] * a;
+        (new_p)[i] = p[i] * a;
     }
-    return *new_p;
+    return new_p;
 }
 
 ostream& operator<<(ostream& output, const Polynomial& p)
 {
     int i, max = p.getDegree(true) + 1;
 
-    output << "polynomial = " << p[0];
+    output << "Polynomial = " << p[0];
 
     for (i = 1; i < max; i++)
     {
-        output << "+(" << p[i]<< + ")X^" << i;
+        output << "+(" << p.getCoeff(i) << +")*X^" << i;
     }
     output<< "\n";
     return output;
