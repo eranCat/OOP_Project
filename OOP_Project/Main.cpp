@@ -75,9 +75,30 @@ void testRational() {
 	cout << "__________________________" << endl;
 }
 
+void test333() {
+	Polynomial p1(3);
+	p1.setCoeff(0, 1);
+	p1.setCoeff(1, 2);
+	p1.setCoeff(2, 3);
+	p1.setCoeff(3, 4);
+
+	Polynomial p2(2);
+	p2.setCoeff(0, 2);
+	p2.setCoeff(1, 2);
+	p2.setCoeff(2, 3);
+
+	p1.print();
+	p2.print();
+
+	Polynomial p3 = p1 + p2;
+	p3.print();
+}
+
 int main()
 {
 	testPolynomial();
 	testRational();
+
+	//test333();
 }
 

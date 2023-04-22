@@ -18,12 +18,12 @@ public:
 	const Polynomial& getDenom()const;
 	void print()const;
 
-	Rational operator=(const Rational& other);
-	Rational operator+(const Rational& other);
-	Rational operator-(const Rational& other);
-	Rational operator*(const Rational& other);
-	friend Rational operator*(const double a, const Rational& r);
+	Rational& operator=(const Rational& other);
+	Rational& operator+(const Rational& other);
+	Rational& operator-(const Rational& other);
+	Rational& operator*(const Rational& other);
+	friend Rational& operator*(const double a, const Rational& r);
 
-	friend ostream& operator<<(ostream& output, const Rational& p);
+	friend ostream& operator<<(ostream& output, const Rational& r);
 };
 

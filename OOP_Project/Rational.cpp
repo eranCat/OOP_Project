@@ -39,46 +39,48 @@ void Rational::print()const {
 	cout << _denominator;
 }
 
-Rational Rational::operator=(const Rational& other)
+Rational& Rational::operator=(const Rational& other)
 {
 	this->_numerator = other._numerator;
 	this->_denominator = other._denominator;
 	return *this;
 }
 
-Rational Rational::operator+(const Rational& other)
+Rational& Rational::operator+(const Rational& other)
 {
-	Rational plus = Rational(*this);
+	Rational* plus = new Rational(*this);
 
-	plus._numerator = this->_numerator * other._denominator + this->_denominator * other._numerator;
-	plus._denominator = this->_denominator * other._denominator;
-	return plus;
+	plus->_numerator = this->_numerator * other._denominator + this->_denominator * other._numerator;
+	plus->_denominator = this->_denominator * other._denominator;
+	return *plus;
 }
 
-Rational Rational::operator-(const Rational& other)
+Rational& Rational::operator-(const Rational& other)
 {
 	return *this + (-1) * other;
 }
 
-Rational Rational::operator*(const Rational& other)
+Rational& Rational::operator*(const Rational& other)
 {
-	return Rational(other._numerator * _numerator, other._denominator * _denominator);
+	Rational *r = new Rational(other._numerator * _numerator, other._denominator * _denominator);
+	return *r;
 }
 
-Rational operator*(const double a, const Rational& r)
+Rational& operator*(const double a, const Rational& r)
 {
-	return  Rational(r._numerator * a, r._denominator * abs(a));
+	 Rational *mult = new Rational(r._numerator * a, r._denominator * abs(a));
+	 return *mult;
 }
 
-ostream& operator<<(ostream& output, const Rational& p)
+ostream& operator<<(ostream& output, const Rational& r)
 {
-	output <<"numerator=" << p._numerator;
+	output <<"numerator=" << r._numerator;
 	for (int i = 0; i < 26; i++)
 	{
 		output << "-";
 	}
 	output << endl;
-	output <<"denominator=" << p._denominator;
+	output <<"denominator=" << r._denominator;
 	return output;
 }
 

@@ -28,19 +28,18 @@ public:
 
 	void print()const;
 
-	Polynomial operator+(const Polynomial& other)const;
-	Polynomial operator-(const Polynomial& other)const;
-	Polynomial operator*(const Polynomial& other)const;
+	Polynomial& operator+(const Polynomial& other)const;
+	Polynomial& operator-(const Polynomial& other)const;
+	Polynomial& operator*(const Polynomial& other)const;
 
-	friend Polynomial operator*(const double a, const Polynomial& p);
-	friend Polynomial operator*(const Polynomial& p, const double a) {
-		//call the other in reverse
-		return a * p;
-	}
+	friend Polynomial& operator*(const double a, const Polynomial& p);
+	friend Polynomial& operator*(const Polynomial& p, const double a);
 
 	//Read access to coeffs
 	double operator[](int i) const;
 	double& operator[](int i);
 	friend ostream& operator<<(ostream& output, const Polynomial& p);
+
+	void updateMaxDegree();
 };
 
