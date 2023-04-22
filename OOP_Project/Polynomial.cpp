@@ -43,13 +43,19 @@ Polynomial& Polynomial::operator=(const Polynomial& other)
         return *this;
     }
 
-    if(_coeffs ) delete[] _coeffs;
-
+    /*if (other._degree > this->_degree) {
+        delete[] _coeffs;
+        this->_coeffs = new double[other._degree + 1]();
+    }
+    else
+    {
+        for (int i = 0; i <= _degree; i++)
+            this->_coeffs[i] = 0;
+    }*/
     this->_coeffs = new double[other._degree + 1]();
-
     this->_degree = other._degree;
 
-    for (int i = 0; i < other._degree + 1; i++)
+    for (int i = 0; i <= _degree; i++)
     {
         this->_coeffs[i] = other.getCoeff(i);
     }
@@ -78,14 +84,12 @@ int Polynomial::getDegree(bool iterate) const
 
 double Polynomial::getCoeff(int index) const
 {
-   /* if (_coeffs == NULL || !(index >= 0 && index <= _degree))
-        return -1234.12;*/
-    
-    if (_coeffs == NULL || index < 0)
+    //if (_coeffs == NULL || !(index >= 0 && index <= _degree))
+    //    return -1234.12;
+    if (index < 0)
         return -1234.12;
-    if (index >= _degree+1)
+    if (index > _degree)
         return 0;
-    
 
     return _coeffs[index];
 }
