@@ -80,3 +80,4 @@ int main()
 	testPolynomial();
 	testRational();
 }
+

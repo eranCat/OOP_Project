@@ -108,6 +108,5 @@ void Polynomial::print()const {
 
 Polynomial::~Polynomial()
 {
-    //cout << "--------------Destruct Poly" << _coeffs << "\n";
     delete[] _coeffs;
 }
