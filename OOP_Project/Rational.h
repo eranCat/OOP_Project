@@ -21,6 +21,7 @@ public:
 	Rational& operator+(Rational& other);
 	Rational& operator-(Rational& other);
 	Rational& operator*(Rational& other);
+	friend Rational& operator*(const double a, const Rational& r);
 
 	friend ostream& operator<<(ostream& output, const Rational& p);
 };

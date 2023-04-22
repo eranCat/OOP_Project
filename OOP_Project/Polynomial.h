@@ -39,8 +39,8 @@ public:
 	}
 
 	//Read access to coeffs
+	double operator[](int i) const;
 	double& operator[](int i);
-	string toString()const;
 	friend ostream& operator<<(ostream& output, const Polynomial& p);
 };
 

@@ -85,28 +85,102 @@ void Polynomial::setCoeff(int degree, double coeff) {
     }
 }
 
+double Polynomial::operator[](int i) const {
+    return _coeffs[i];
+}
 double& Polynomial::operator[](int i) {
     return _coeffs[i];
 }
 
-string Polynomial::toString() const{
-    int i, max = getDegree(true) + 1;
+Polynomial& Polynomial::operator+(Polynomial& other) const
+{
+    Polynomial* plus = NULL;
+    int i;
+    int P_MIN, P_MAX;
+    double* minCo;
+    double* maxCo;
 
-    string str = "polynomial = " + to_string( _coeffs[0]);
+    if (this->_degree < other._degree)
+    {
+        P_MIN = this->_degree;
+        P_MAX = other._degree;
+        minCo = this->_coeffs;
+        maxCo = other._coeffs;
+    }
+    else
+    {
+        P_MIN = other._degree;
+        P_MAX = this->_degree;
+        minCo = other._coeffs;
+        maxCo = this->_coeffs;
+    }
+
+    plus = new Polynomial(P_MAX);
     
+    for ( i = 0; i < P_MIN + 1; i++)
+    {
+        plus[i] = minCo[i] + maxCo[i];
+    }
+    
+    for (; i < P_MAX + 1; i++)
+    {
+        plus[i] = maxCo[i];
+    }
+    return *plus;
+}
+
+Polynomial& Polynomial::operator-(Polynomial& other) const
+{
+    return *this + (-1) * other;
+}
+
+Polynomial& Polynomial::operator*(Polynomial& other) const
+{
+    Polynomial* mult = new Polynomial(_degree + other._degree);
+    int i, j;
+    for (i = 0; i < this->_degree; i++)
+    {
+        for (j = 0; j < other._degree; j++)
+        {
+            mult->_coeffs[i+j] += this->_coeffs[i] * other[j];
+        }
+    }
+
+    return *mult;
+}
+
+Polynomial& operator*(const double a, const Polynomial& p)
+{
+    int i;
+    Polynomial* new_p = new Polynomial(p);
+    for (i = 0; i < p._degree + 1; i++)
+    {
+        (*new_p)[i] = p[i] * a;
+    }
+    return *new_p;
+}
+
+ostream& operator<<(ostream& output, const Polynomial& p)
+{
+    int i, max = p.getDegree(true) + 1;
+
+    output << "polynomial = " << p[0];
+
     for (i = 1; i < max; i++)
     {
-        str += "+" + to_string(_coeffs[i]) + "X^" + to_string(i);
+        output << "+(" << p[i]<< + ")X^" << i;
     }
-    str+= "\n";
-    return str;
+    output<< "\n";
+    return output;
 }
 
 void Polynomial::print()const {
-    cout << toString();
+    cout << *this;
 }
 
 Polynomial::~Polynomial()
 {
     delete[] _coeffs;
 }
+
+
